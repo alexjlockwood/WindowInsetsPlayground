@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    Color naming scheme:
+        <color>_alpha<percentage>
+
+    Percentage cheat sheet - for calculating alpha
+        FF - 100%
+        F2 - 95%
+        E6 - 90%
+        D9 - 85%
+        CC - 80%
+        BF - 75%
+        B3 - 70%
+        A6 - 65%
+        99 - 60%
+        8C - 55%
+        80 - 50%
+        73 - 45%
+        66 - 40%
+        59 - 35%
+        4D - 30%
+        40 - 25%
+        33 - 20%
+        26 - 15%
+        1A - 10%
+        0D - 5%
+        00 - 0%
+    -->
+
+    <color name="design_core_ui_lyft_pink_alpha10">#1AFF00BF</color>
+    <color name="design_core_ui_lyft_pink_alpha20">#33FF00BF</color>
+    <color name="design_core_ui_lyft_pink_alpha25">#40FF00BF</color>
+    <color name="design_core_ui_lyft_pink_alpha30">#4DFF00BF</color>
+    <color name="design_core_ui_lyft_pink_alpha40">#66FF00BF</color>
+    <color name="design_core_ui_lyft_pink_alpha50">#80FF00BF</color>
+
+    <color name="design_core_ui_white_alpha0">#00ffffff</color>
+    <color name="design_core_ui_white_alpha20">#33FFFFFF</color>
+    <color name="design_core_ui_white_alpha30">#4DFFFFFF</color>
+    <color name="design_core_ui_white_alpha40">#66FFFFFF</color>
+    <color name="design_core_ui_white_alpha50">#80FFFFFF</color>
+    <color name="design_core_ui_white_alpha70">#b4ffffff</color>
+    <color name="design_core_ui_white_alpha90">#E6FFFFFF</color>
+
+    <color name="design_core_ui_black_alpha0">#00000000</color>
+    <color name="design_core_ui_black_alpha10">#1A000000</color>
+    <color name="design_core_ui_black_alpha15">#26000000</color>
+    <color name="design_core_ui_black_alpha20">#33000000</color>
+    <color name="design_core_ui_black_alpha30">#4D000000</color>
+    <color name="design_core_ui_black_alpha40">#66000000</color>
+    <color name="design_core_ui_black_alpha55">#8C000000</color>
+    <color name="design_core_ui_black_alpha60">#99000000</color>
+    <color name="design_core_ui_black_alpha70">#B3000000</color>
+    <color name="design_core_ui_black_alpha75">#BF000000</color>
+    <color name="design_core_ui_black_alpha80">#CC000000</color>
+
+    <color name="design_core_ui_purple60_alpha5">#0D8B37FF</color>
+    <color name="design_core_ui_purple60_alpha10">#1A8B37FF</color>
+    <color name="design_core_ui_purple60_alpha20">#338B37FF</color>
+    <color name="design_core_ui_purple60_alpha30">#4D8B37FF</color>
+    <color name="design_core_ui_purple60_alpha40">#668B37FF</color>
+    <color name="design_core_ui_purple60_alpha50">#808B37FF</color>
+    <color name="design_core_ui_purple60_alpha60">#9B8B37FF</color>
+
+    <color name="design_core_ui_purple80_alpha20">#33590DC4</color>
+    <color name="design_core_ui_purple80_alpha30">#4D590DC4</color>
+
+    <color name="design_core_ui_pink60_alpha10">#1ADE00A7</color>
+    <color name="design_core_ui_pink60_alpha20">#33DE00A7</color>
+
+    <color name="design_core_ui_pink70_alpha25">#40BD00A0</color>
+
+    <color name="design_core_ui_pink80_alpha20">#33A00093</color>
+
+    <color name="design_core_ui_pink100_alpha20">#3371006F</color>
+
+    <color name="design_core_ui_gray5_alpha0">#00F4F4FA</color>
+    <color name="design_core_ui_gray5_alpha20">#33F4F4FA</color>
+
+    <color name="design_core_ui_gray10_alpha60">#99E1E3F3</color>
+
+    <color name="design_core_ui_gray15_alpha30">#4DD8D8E4</color>
+
+    <color name="design_core_ui_gray30_alpha60">#99ACACC0</color>
+
+    <color name="design_core_ui_gray50_alpha30">#4D787891</color>
+    <color name="design_core_ui_gray50_alpha50">#80787891</color>
+    <color name="design_core_ui_gray50_alpha70">#B3787891</color>
+
+    <color name="design_core_ui_gray70_alpha60">#99515167</color>
+
+    <color name="design_core_ui_gray90_alpha10">#1A333344</color>
+    <color name="design_core_ui_gray90_alpha30">#4D333344</color>
+    <color name="design_core_ui_gray90_alpha50">#80333344</color>
+    <color name="design_core_ui_gray90_alpha60">#99333344</color>
+
+    <color name="design_core_ui_gray100_alpha5">#0D292936</color>
+    <color name="design_core_ui_gray100_alpha20">#33292936</color>
+    <color name="design_core_ui_gray100_alpha30">#4D292936</color>
+    <color name="design_core_ui_gray100_alpha40">#66292936</color>
+    <color name="design_core_ui_gray100_alpha50">#80292936</color>
+    <color name="design_core_ui_gray100_alpha60">#99292936</color>
+
+    <color name="design_core_ui_sunset40_alpha40">#66FF623E</color>
+
+    <color name="design_core_ui_sunset60_alpha10">#1ADB3615</color>
+    <color name="design_core_ui_sunset60_alpha25">#40DB3615</color>
+    <color name="design_core_ui_sunset60_alpha40">#66DB3615</color>
+
+    <color name="design_core_ui_mint30_alpha70">#B304CA83</color>
+
+    <color name="design_core_ui_amber80_alpha30">#4CFE7E13</color>
+
+    <color name="design_core_ui_orange40_alpha35">#59FF7232</color>
+
+    <color name="design_core_ui_red40_alpha50">#80FF516B</color>
+
+    <color name="design_core_ui_rose60_alpha50">#80E51966</color>
+
+    <color name="design_core_ui_indigo100_alpha0">#002B1B81</color>
+
+    <color name="design_core_ui_cyan50_alpha35">#593A97D3</color>
+
+</resources>

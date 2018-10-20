@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">DrawerLayoutStatusBar</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Alex Lockwood</string>
+    <string name="nav_header_subtitle">alexjlockwood@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyCYrQJKQkzzvuOuIr3FnbEsrslN4yQpcIk
+    </string>
+</resources>

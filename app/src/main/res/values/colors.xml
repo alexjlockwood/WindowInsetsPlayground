@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/design_core_ui_purple60</color>
+    <color name="colorPrimaryDark">@color/design_core_ui_purple80</color>
+    <color name="colorAccent">@color/design_core_ui_lyft_pink</color>
+</resources>
