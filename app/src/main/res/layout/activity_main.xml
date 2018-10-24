@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.example.alockwood.windowinsetsplayground.CustomDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/drawer_layout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:openDrawer="start">
+
+  <FrameLayout
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+      android:id="@+id/content_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
+  </FrameLayout>
+
+  <android.support.design.widget.NavigationView
+    android:id="@+id/drawer_view"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:openDrawer="start">
-
-    <com.example.alockwood.windowinsetsplayground.utils.ExtendedFrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.example.alockwood.windowinsetsplayground.utils.ExtendedFrameLayout
-            android:id="@+id/content_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </com.example.alockwood.windowinsetsplayground.utils.ExtendedFrameLayout>
-
-    <com.example.alockwood.windowinsetsplayground.utils.ExtendedNavigationView
-        android:id="@+id/drawer_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+    android:layout_gravity="start"
+    app:headerLayout="@layout/nav_header_main"
+    app:menu="@menu/activity_main_drawer" />
 
 </com.example.alockwood.windowinsetsplayground.CustomDrawerLayout>

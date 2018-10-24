@@ -3,7 +3,6 @@ package com.example.alockwood.windowinsetsplayground;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +37,13 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback {
     }
     mapView.onCreate(mapViewBundle);
     mapView.getMapAsync(this);
+  }
+
+  @Override
+  protected void onSetupDrawerLayout(CustomDrawerLayout drawerLayout) {
+    drawerLayout.setStatusBarBackground(R.color.design_core_ui_white_alpha50);
+    drawerLayout.setShouldDrawChildrenUnderStatusBar(true);
+    drawerLayout.setShouldUseLightStatusBar(true);
   }
 
   @Override

@@ -40,6 +40,7 @@
     <color name="design_core_ui_white_alpha30">#4DFFFFFF</color>
     <color name="design_core_ui_white_alpha40">#66FFFFFF</color>
     <color name="design_core_ui_white_alpha50">#80FFFFFF</color>
+    <color name="design_core_ui_white_alpha60">#99FFFFFF</color>
     <color name="design_core_ui_white_alpha70">#b4ffffff</color>
     <color name="design_core_ui_white_alpha90">#E6FFFFFF</color>
 

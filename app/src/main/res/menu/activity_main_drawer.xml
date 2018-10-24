@@ -7,19 +7,19 @@
         <item
             android:id="@+id/home"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/promos"
             android:icon="@drawable/ic_star_black_24dp"
-            android:title="Promos" />
+            android:title="@string/promos" />
         <item
             android:id="@+id/donate"
             android:icon="@drawable/ic_favorite_black_24dp"
-            android:title="Donate" />
+            android:title="@string/donate" />
         <item
-            android:id="@+id/profile"
+            android:id="@+id/photo"
             android:icon="@drawable/ic_person_black_24dp"
-            android:title="Profile" />
+            android:title="@string/photo" />
     </group>
 
 </menu>

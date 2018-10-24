@@ -13,19 +13,18 @@ import com.bumptech.glide.request.RequestOptions;
 
 public class MainActivity extends AppCompatActivity {
 
-  private CustomDrawerLayout drawerLayout;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
+    final DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+    final NavigationView navigationView = findViewById(R.id.drawer_view);
+
     if (savedInstanceState == null) {
       replaceFragment(new HomeFragment());
+      navigationView.setCheckedItem(R.id.home);
     }
-
-    drawerLayout = findViewById(R.id.drawer_layout);
-    final NavigationView navigationView = findViewById(R.id.drawer_view);
 
     navigationView.setNavigationItemSelectedListener(
         menuItem -> {
@@ -37,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
             replaceFragment(new PromosFragment());
           } else if (id == R.id.donate) {
             replaceFragment(new DonateFragment());
-          } else if (id == R.id.profile) {
-            replaceFragment(new ProfileFragment());
+          } else if (id == R.id.photo) {
+            replaceFragment(new PhotoFragment());
           }
 
           drawerLayout.closeDrawer(GravityCompat.START);
@@ -74,9 +73,5 @@ public class MainActivity extends AppCompatActivity {
     } else {
       super.onBackPressed();
     }
-  }
-
-  public CustomDrawerLayout getDrawerLayout() {
-    return drawerLayout;
   }
 }
