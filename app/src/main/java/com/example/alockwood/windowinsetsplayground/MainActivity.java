@@ -36,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
             replaceFragment(new PromosFragment());
           } else if (id == R.id.donate) {
             replaceFragment(new DonateFragment());
-          } else if (id == R.id.photo) {
-            replaceFragment(new PhotoFragment());
+          } else if (id == R.id.collapsing_toolbar) {
+            replaceFragment(new CollapsingToolbarFragment());
+          } else if (id == R.id.toolbar) {
+            replaceFragment(new ToolbarFragment());
           }
 
           drawerLayout.closeDrawer(GravityCompat.START);
@@ -58,10 +60,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void replaceFragment(Fragment fragment) {
-    getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.content_view, fragment)
-        .commit();
+    getSupportFragmentManager().beginTransaction().replace(R.id.content_view, fragment).commit();
   }
 
   @Override

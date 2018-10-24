@@ -10,6 +10,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
@@ -41,7 +42,7 @@ public class CustomDrawerLayout extends DrawerLayout {
     super(context, attrs, defStyle);
 
     if (getFitsSystemWindows()) {
-      throw new IllegalStateException("This class must not use fitsSystemWindows");
+      throw new IllegalStateException("This class must not set android:fitsSystemWindows=\"true\"");
     }
 
     setSystemUiVisibility(
@@ -60,8 +61,8 @@ public class CustomDrawerLayout extends DrawerLayout {
   @Override
   protected void onFinishInflate() {
     super.onFinishInflate();
-    contentView = findViewById(R.id.content_view);
-    drawerView = findViewById(R.id.drawer_view);
+    contentView = ViewCompat.requireViewById(this, R.id.content_view);
+    drawerView =  ViewCompat.requireViewById(this, R.id.drawer_view);
   }
 
   @SuppressLint("RtlHardcoded")
@@ -90,17 +91,17 @@ public class CustomDrawerLayout extends DrawerLayout {
             bottomInset);
     drawerView.dispatchApplyWindowInsets(drawerViewInsets);
 
-    WindowInsets contentViewInsets = lastWindowInsets;
+    final MarginLayoutParams lp = (MarginLayoutParams) contentView.getLayoutParams();
+    lp.leftMargin = leftInset;
+    lp.topMargin = shouldDrawChildrenUnderStatusBarBackground ? 0 : topInset;
+    lp.rightMargin = rightInset;
+    lp.bottomMargin = bottomInset;
+
     if (shouldDrawChildrenUnderStatusBarBackground) {
-      contentView.dispatchApplyWindowInsets(contentViewInsets);
+      contentView.dispatchApplyWindowInsets(lastWindowInsets);
     } else {
       final int widthSize = MeasureSpec.getSize(widthMeasureSpec);
       final int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-      final MarginLayoutParams lp = (MarginLayoutParams) contentView.getLayoutParams();
-      lp.leftMargin = leftInset;
-      lp.topMargin = topInset;
-      lp.rightMargin = rightInset;
-      lp.bottomMargin = bottomInset;
       final int contentWidthSpec =
           MeasureSpec.makeMeasureSpec(
               widthSize - lp.leftMargin - lp.rightMargin, MeasureSpec.EXACTLY);

@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/home"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:title="@string/home" />
-        <item
-            android:id="@+id/promos"
-            android:icon="@drawable/ic_star_black_24dp"
-            android:title="@string/promos" />
-        <item
-            android:id="@+id/donate"
-            android:icon="@drawable/ic_favorite_black_24dp"
-            android:title="@string/donate" />
-        <item
-            android:id="@+id/photo"
-            android:icon="@drawable/ic_person_black_24dp"
-            android:title="@string/photo" />
-    </group>
+  <group android:checkableBehavior="single">
+    <item
+      android:id="@+id/home"
+      android:icon="@drawable/ic_home_black_24dp"
+      android:title="@string/home" />
+    <item
+      android:id="@+id/promos"
+      android:icon="@drawable/ic_star_black_24dp"
+      android:title="@string/promos" />
+    <item
+      android:id="@+id/donate"
+      android:icon="@drawable/ic_favorite_black_24dp"
+      android:title="@string/donate" />
+    <item
+      android:id="@+id/collapsing_toolbar"
+      android:icon="@drawable/ic_person_black_24dp"
+      android:title="@string/collapsing_toolbar" />
+    <item
+      android:id="@+id/toolbar"
+      android:icon="@drawable/ic_cake_black_24dp"
+      android:title="@string/toolbar" />
+  </group>
 
 </menu>
