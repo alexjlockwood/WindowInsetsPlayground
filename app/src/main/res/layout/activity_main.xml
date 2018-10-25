@@ -8,11 +8,22 @@
   tools:openDrawer="start">
 
   <FrameLayout
-    android:id="@+id/content_view"
+    android:id="@+id/content_view_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent">
 
-  <android.support.design.widget.NavigationView
+    <FrameLayout
+      android:id="@+id/content_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
+    <View
+      android:id="@+id/status_bar_background_view"
+      android:layout_width="match_parent"
+      android:layout_height="0dp" />
+  </FrameLayout>
+
+  <com.example.alockwood.windowinsetsplayground.CustomNavigationView
     android:id="@+id/drawer_view"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"

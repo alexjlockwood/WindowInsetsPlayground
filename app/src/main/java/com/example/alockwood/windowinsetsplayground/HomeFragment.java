@@ -1,5 +1,6 @@
 package com.example.alockwood.windowinsetsplayground;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,13 +38,6 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback {
     }
     mapView.onCreate(mapViewBundle);
     mapView.getMapAsync(this);
-  }
-
-  @Override
-  protected void onSetupDrawerLayout(CustomDrawerLayout drawerLayout) {
-    drawerLayout.setStatusBarBackground(R.color.design_core_ui_white_alpha50);
-    drawerLayout.setShouldDrawChildrenUnderStatusBar(true);
-    drawerLayout.setShouldUseLightStatusBar(true);
   }
 
   @Override
@@ -96,5 +90,22 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback {
   @Override
   public void onMapReady(GoogleMap googleMap) {
     googleMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+  }
+
+  @Override
+  protected int getStatusBarBackground() {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+        ? R.color.design_core_ui_white_alpha70
+        : R.color.design_core_ui_black_alpha40;
+  }
+
+  @Override
+  protected boolean shouldUseLightStatusBar() {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+  }
+
+  @Override
+  protected boolean shouldDrawContentUnderStatusBar() {
+    return true;
   }
 }

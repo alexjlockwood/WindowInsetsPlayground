@@ -1,5 +1,6 @@
 package com.example.alockwood.windowinsetsplayground;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
@@ -21,9 +22,19 @@ public class ToolbarFragment extends BaseFragment {
   }
 
   @Override
-  protected void onSetupDrawerLayout(CustomDrawerLayout drawerLayout) {
-    drawerLayout.setStatusBarBackground(R.color.design_core_ui_white);
-    drawerLayout.setShouldDrawChildrenUnderStatusBar(false);
-    drawerLayout.setShouldUseLightStatusBar(true);
+  protected int getStatusBarBackground() {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+        ? R.color.design_core_ui_white
+        : R.color.design_core_ui_black_alpha40;
+  }
+
+  @Override
+  protected boolean shouldUseLightStatusBar() {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+  }
+
+  @Override
+  protected boolean shouldDrawContentUnderStatusBar() {
+    return false;
   }
 }

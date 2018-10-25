@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     final ImageView profilePhoto = navigationView.getHeaderView(0).findViewById(R.id.profile_photo);
     Glide.with(this)
         .load(Constants.PROFILE_PHOTO_URL)
+        .apply(RequestOptions.centerCropTransform())
         .apply(RequestOptions.circleCropTransform())
         .into(profilePhoto);
 
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
   public void onBackPressed() {
     final DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
     if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-      drawerLayout.requestApplyInsets();
       drawerLayout.closeDrawer(GravityCompat.START);
     } else {
       super.onBackPressed();

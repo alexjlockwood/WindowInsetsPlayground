@@ -21,9 +21,17 @@ public class DonateFragment extends BaseFragment {
   }
 
   @Override
-  protected void onSetupDrawerLayout(CustomDrawerLayout drawerLayout) {
-    drawerLayout.setStatusBarBackground(R.color.design_core_ui_blue100);
-    drawerLayout.setShouldDrawChildrenUnderStatusBar(false);
-    drawerLayout.setShouldUseLightStatusBar(false);
+  protected int getStatusBarBackground() {
+    return R.color.design_core_ui_blue100;
+  }
+
+  @Override
+  protected boolean shouldUseLightStatusBar() {
+    return false;
+  }
+
+  @Override
+  protected boolean shouldDrawContentUnderStatusBar() {
+    return false;
   }
 }

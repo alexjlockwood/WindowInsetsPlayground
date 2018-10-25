@@ -2,7 +2,6 @@ package com.example.alockwood.windowinsetsplayground;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -10,7 +9,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
@@ -18,17 +16,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowInsets;
 
 public class CustomDrawerLayout extends DrawerLayout {
 
   private View contentView;
-  private View drawerView;
+  private CustomNavigationView drawerView;
+  private View statusBarBackgroundView;
 
   @Nullable private WindowInsets lastWindowInsets;
-  private boolean shouldDrawStatusBarBackground;
-  @Nullable private Drawable statusBarBackground;
-  private boolean shouldDrawChildrenUnderStatusBarBackground;
+  private boolean shouldDrawContentUnderStatusBar;
 
   public CustomDrawerLayout(@NonNull Context context) {
     this(context, null);
@@ -42,7 +40,7 @@ public class CustomDrawerLayout extends DrawerLayout {
     super(context, attrs, defStyle);
 
     if (getFitsSystemWindows()) {
-      throw new IllegalStateException("This class must not set android:fitsSystemWindows=\"true\"");
+      throw new IllegalStateException("This class must set android:fitsSystemWindows=\"false\"");
     }
 
     setSystemUiVisibility(
@@ -51,8 +49,9 @@ public class CustomDrawerLayout extends DrawerLayout {
     setOnApplyWindowInsetsListener(
         (v, insets) -> {
           lastWindowInsets = insets;
-          shouldDrawStatusBarBackground = insets.getSystemWindowInsetTop() > 0;
-          setWillNotDraw(!shouldDrawStatusBarBackground && getBackground() == null);
+          final ViewGroup.LayoutParams lp = statusBarBackgroundView.getLayoutParams();
+          lp.height = insets.getSystemWindowInsetTop();
+          statusBarBackgroundView.setLayoutParams(lp);
           requestLayout();
           return insets.consumeSystemWindowInsets();
         });
@@ -62,7 +61,8 @@ public class CustomDrawerLayout extends DrawerLayout {
   protected void onFinishInflate() {
     super.onFinishInflate();
     contentView = ViewCompat.requireViewById(this, R.id.content_view);
-    drawerView =  ViewCompat.requireViewById(this, R.id.drawer_view);
+    drawerView = ViewCompat.requireViewById(this, R.id.drawer_view);
+    statusBarBackgroundView = ViewCompat.requireViewById(this, R.id.status_bar_background_view);
   }
 
   @SuppressLint("RtlHardcoded")
@@ -93,11 +93,11 @@ public class CustomDrawerLayout extends DrawerLayout {
 
     final MarginLayoutParams lp = (MarginLayoutParams) contentView.getLayoutParams();
     lp.leftMargin = leftInset;
-    lp.topMargin = shouldDrawChildrenUnderStatusBarBackground ? 0 : topInset;
+    lp.topMargin = shouldDrawContentUnderStatusBar ? 0 : topInset;
     lp.rightMargin = rightInset;
     lp.bottomMargin = bottomInset;
 
-    if (shouldDrawChildrenUnderStatusBarBackground) {
+    if (shouldDrawContentUnderStatusBar) {
       contentView.dispatchApplyWindowInsets(lastWindowInsets);
     } else {
       final int widthSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -108,48 +108,21 @@ public class CustomDrawerLayout extends DrawerLayout {
       final int contentHeightSpec =
           MeasureSpec.makeMeasureSpec(
               heightSize - lp.topMargin - lp.bottomMargin, MeasureSpec.EXACTLY);
+
+      // TODO: seems kinda hacky to directly measure another view group's child...
       contentView.measure(contentWidthSpec, contentHeightSpec);
-    }
-  }
-
-  @Override
-  public void dispatchDraw(Canvas canvas) {
-    super.dispatchDraw(canvas);
-
-    if (shouldDrawChildrenUnderStatusBarBackground) {
-      drawStatusBarBackground(canvas);
-    }
-  }
-
-  @Override
-  public void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
-
-    if (!shouldDrawChildrenUnderStatusBarBackground) {
-      drawStatusBarBackground(canvas);
-    }
-  }
-
-  private void drawStatusBarBackground(Canvas canvas) {
-    if (shouldDrawStatusBarBackground && statusBarBackground != null) {
-      final int topInset =
-          lastWindowInsets == null ? 0 : lastWindowInsets.getSystemWindowInsetTop();
-      if (topInset > 0) {
-        statusBarBackground.setBounds(0, 0, getWidth(), topInset);
-        statusBarBackground.draw(canvas);
-      }
     }
   }
 
   @Nullable
   @Override
   public Drawable getStatusBarBackgroundDrawable() {
-    return statusBarBackground;
+    return statusBarBackgroundView.getBackground();
   }
 
   @Override
   public void setStatusBarBackground(@ColorRes int resId) {
-    setStatusBarBackground(resId != 0 ? ContextCompat.getDrawable(getContext(), resId) : null);
+    setStatusBarBackground(resId == 0 ? null : ContextCompat.getDrawable(getContext(), resId));
   }
 
   @Override
@@ -159,17 +132,12 @@ public class CustomDrawerLayout extends DrawerLayout {
 
   @Override
   public void setStatusBarBackground(@Nullable Drawable drawable) {
-    if (statusBarBackground != drawable) {
-      statusBarBackground = drawable;
-      invalidate();
-    }
+    statusBarBackgroundView.setBackground(drawable);
   }
 
-  public void setShouldDrawChildrenUnderStatusBar(
-      boolean shouldDrawChildrenUnderStatusBarBackground) {
-    if (this.shouldDrawChildrenUnderStatusBarBackground
-        != shouldDrawChildrenUnderStatusBarBackground) {
-      this.shouldDrawChildrenUnderStatusBarBackground = shouldDrawChildrenUnderStatusBarBackground;
+  public void setShouldDrawContentUnderStatusBar(boolean shouldDrawContentUnderStatusBar) {
+    if (this.shouldDrawContentUnderStatusBar != shouldDrawContentUnderStatusBar) {
+      this.shouldDrawContentUnderStatusBar = shouldDrawContentUnderStatusBar;
       requestApplyInsets();
     }
   }
@@ -183,6 +151,11 @@ public class CustomDrawerLayout extends DrawerLayout {
         flags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
       }
       setSystemUiVisibility(flags);
+
+      drawerView.setForegroundInset(
+          shouldUseLightStatusBar
+              ? R.color.design_core_ui_white_alpha50
+              : R.color.design_core_ui_black_alpha25);
     }
   }
 }

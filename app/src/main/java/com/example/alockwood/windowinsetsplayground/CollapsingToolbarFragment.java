@@ -1,6 +1,5 @@
 package com.example.alockwood.windowinsetsplayground;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -22,17 +21,23 @@ public class CollapsingToolbarFragment extends BaseFragment {
     collapsingToolbar.setTitle(getString(R.string.collapsing_toolbar));
 
     final ImageView profilePhoto = view.findViewById(R.id.backdrop_photo);
-    Glide.with(this)
-        .load(Constants.COVER_PHOTO_URL)
-        .into(profilePhoto);
+    Glide.with(this).load(Constants.COVER_PHOTO_URL).into(profilePhoto);
 
     return view;
   }
 
   @Override
-  protected void onSetupDrawerLayout(CustomDrawerLayout drawerLayout) {
-    drawerLayout.setStatusBarBackgroundColor(Color.TRANSPARENT);
-    drawerLayout.setShouldDrawChildrenUnderStatusBar(true);
-    drawerLayout.setShouldUseLightStatusBar(false);
+  protected int getStatusBarBackground() {
+    return android.R.color.transparent;
+  }
+
+  @Override
+  protected boolean shouldUseLightStatusBar() {
+    return false;
+  }
+
+  @Override
+  protected boolean shouldDrawContentUnderStatusBar() {
+    return true;
   }
 }
