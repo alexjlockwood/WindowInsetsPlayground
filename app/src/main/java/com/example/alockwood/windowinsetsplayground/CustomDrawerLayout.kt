@@ -16,6 +16,8 @@ import android.view.*
 
 /**
  * A [DrawerLayout] with customized window inset behavior.
+ *
+ * Clients should add their screen contents to the content view w/ ID R.id.content_view.
  */
 class CustomDrawerLayout @JvmOverloads constructor(
         context: Context,
@@ -65,7 +67,8 @@ class CustomDrawerLayout @JvmOverloads constructor(
             val rightInset = insets.systemWindowInsetRight
             val bottomInset = insets.systemWindowInsetBottom
 
-            // This behavior is identical to the behavior used in the super class.
+            // Dispatch the insets to the drawer view (this behavior is identical to how it is
+            // implemented in the super class).
             val drawerViewParams = drawerView.layoutParams as DrawerLayout.LayoutParams
             val drawerViewGravity = GravityCompat.getAbsoluteGravity(
                     drawerViewParams.gravity, ViewCompat.getLayoutDirection(this))
