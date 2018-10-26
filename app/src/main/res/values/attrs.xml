@@ -1,0 +1,7 @@
+<resources>
+
+    <declare-styleable name="ScrimInsetsNavigationView">
+        <attr name="insetForeground" />
+    </declare-styleable>
+
+</resources>
