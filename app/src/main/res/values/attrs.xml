@@ -4,4 +4,9 @@
         <attr name="insetForeground" />
     </declare-styleable>
 
+    <declare-styleable name="FitsSystemWindowsFrameLayout">
+        <attr name="statusBarBackground" format="color|reference" />
+        <attr name="isLightStatusBar" format="boolean" />
+    </declare-styleable>
+
 </resources>
