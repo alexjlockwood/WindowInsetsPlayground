@@ -1,12 +1,15 @@
 <resources>
 
-    <declare-styleable name="ScrimInsetsNavigationView">
-        <attr name="insetForeground" />
-    </declare-styleable>
-
     <declare-styleable name="FitsSystemWindowsFrameLayout">
-        <attr name="statusBarBackground" format="color|reference" />
+        <attr name="consumeLeftInset" format="boolean" />
+        <attr name="consumeTopInset" format="boolean" />
+        <attr name="consumeRightInset" format="boolean" />
+        <attr name="consumeBottomInset" format="boolean" />
+        <attr name="statusBarColor" format="color" />
         <attr name="isLightStatusBar" format="boolean" />
+        <attr name="navigationBarColor" format="color" />
+        <attr name="navigationBarDividerColor" format="color" />
+        <attr name="isLightNavigationBar" format="boolean" />
     </declare-styleable>
 
 </resources>

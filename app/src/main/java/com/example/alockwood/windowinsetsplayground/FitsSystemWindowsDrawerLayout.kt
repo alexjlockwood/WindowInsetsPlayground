@@ -20,7 +20,7 @@ open class FitsSystemWindowsDrawerLayout @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : DrawerLayout(context, attrs, defStyleAttr) {
 
-    private val drawerView: ScrimInsetsNavigationView
+    private val drawerView: View
     private val contentView: View
 
     private var lastWindowInsets: WindowInsets? = null

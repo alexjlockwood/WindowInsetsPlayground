@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:navigationBarColor="#fff"
+    app:isLightNavigationBar="true"
     tools:context=".MainActivity">
 
     <android.support.design.widget.CoordinatorLayout

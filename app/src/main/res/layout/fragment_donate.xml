@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:isLightStatusBar="false"
-    app:statusBarBackground="@color/design_core_ui_blue100"
+    app:statusBarColor="@color/design_core_ui_blue100"
     tools:context=".MainActivity">
 
     <android.support.design.widget.CoordinatorLayout

@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -30,23 +29,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     R.color.design_core_ui_black_alpha40
                 })
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            var flags = view.systemUiVisibility
-            flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            view.systemUiVisibility = flags
-        }
-
-        view.setOnApplyWindowInsetsListener { v, insets ->
-            val mapLayoutParams = mapView.layoutParams as ViewGroup.MarginLayoutParams
-            mapLayoutParams.leftMargin = insets.systemWindowInsetLeft
-            mapLayoutParams.rightMargin = insets.systemWindowInsetRight
-            mapLayoutParams.bottomMargin = insets.systemWindowInsetBottom
-            mapView.layoutParams = mapLayoutParams
-
+        statusBarBackgroundView.setOnApplyWindowInsetsListener { v, insets ->
             val statusBarLayoutParams = statusBarBackgroundView.layoutParams
             statusBarLayoutParams.height = insets.systemWindowInsetTop
             statusBarBackgroundView.layoutParams = statusBarLayoutParams
-
             insets.consumeSystemWindowInsets()
         }
         return view
