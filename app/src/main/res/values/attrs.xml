@@ -8,8 +8,8 @@
         <attr name="statusBarColor" format="color" />
         <attr name="isLightStatusBar" format="boolean" />
         <attr name="navigationBarColor" format="color" />
-        <attr name="navigationBarDividerColor" format="color" />
         <attr name="isLightNavigationBar" format="boolean" />
+        <attr name="showNavigationBarDivider" format="boolean" />
     </declare-styleable>
 
 </resources>

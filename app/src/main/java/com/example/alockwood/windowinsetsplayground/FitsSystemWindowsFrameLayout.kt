@@ -6,10 +6,47 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.os.Build
 import android.support.annotation.ColorInt
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 
+/**
+ * A [FrameLayout] that is cabable of consuming a screen's window insets and drawing its status bar
+ * and navigation bar backgrounds. This class should typically be used as a screen's root view.
+ *
+ * By default, this view consumes all window insets and sets them as its padding to ensure that
+ * children views aren't displayed underneath the status bar and navigation bars. This behavior can
+ * be customized using the following attributes:
+ *
+ * - [app:consumeLeftInset][R.attr.consumeLeftInset]
+ * - [app:consumeTopInset][R.attr.consumeTopInset]
+ * - [app:consumeRightInset][R.attr.consumeRightInset]
+ * - [app:consumeBottomInset][R.attr.consumeBottomInset]
+ *
+ * By default, this view draws a light status bar w/ a white background. This behavior can be
+ * customized using the following attributes:
+ *
+ * - [app:statusBarColor][R.attr.statusBarColor]
+ * - [app:isLightStatusBar][R.attr.isLightStatusBar]
+ *
+ * Note that light status bars are only supported on API 23 and above. If a light status bar is used
+ * on an older platform, a dark status bar w/ a black background will be used instead.
+ *
+ * By default, this view draws a dark navigation bar w/ a black background. This behavior can be
+ * customized using the following attributes:
+ *
+ * - [app:navigationBarColor][R.attr.navigationBarColor]
+ * - [app:isLightNavigationBar][R.attr.isLightNavigationBar]
+ *
+ * Note that light navigation bars are only supported on API 26 and above. If a light navigation bar
+ * is used on an older platform, a dark navigation bar w/ a black background will be used instead.
+ *
+ * By default, this view draws a divider above the navigation bar if it is light. This behavior can
+ * be customized using the following attribute:
+ *
+ * - [app:showNavigationBarDivider][R.attr.showNavigationBarDivider]
+ */
 class FitsSystemWindowsFrameLayout @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
@@ -27,15 +64,16 @@ class FitsSystemWindowsFrameLayout @JvmOverloads constructor(
 
     @ColorInt
     private val navigationBarColor: Int
-    @ColorInt
-    private val navigationBarDividerColor: Int
     private val isLightNavigationBar: Boolean
-
-    private var lastWindowInsetTop: Int = 0
-    private var lastWindowInsetBottom: Int = 0
+    private val showNavigationBarDivider: Boolean
 
     private val paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val navigationBarDividerHeight: Float
+    @ColorInt
+    private val navigationBarDividerColor: Int
+
+    private var lastWindowInsetTop: Int = 0
+    private var lastWindowInsetBottom: Int = 0
 
     init {
         systemUiVisibility =
@@ -44,6 +82,7 @@ class FitsSystemWindowsFrameLayout @JvmOverloads constructor(
                         or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
         paint.style = Paint.Style.FILL
         navigationBarDividerHeight = resources.getDimension(R.dimen.navigation_bar_divider_height)
+        navigationBarDividerColor = ContextCompat.getColor(context, R.color.design_core_ui_divider)
 
         val ta = context.obtainStyledAttributes(attrs, R.styleable.FitsSystemWindowsFrameLayout, defStyleAttr, 0)
         try {
@@ -51,17 +90,19 @@ class FitsSystemWindowsFrameLayout @JvmOverloads constructor(
             consumeTopInset = ta.getBoolean(R.styleable.FitsSystemWindowsFrameLayout_consumeTopInset, true)
             consumeRightInset = ta.getBoolean(R.styleable.FitsSystemWindowsFrameLayout_consumeRightInset, true)
             consumeBottomInset = ta.getBoolean(R.styleable.FitsSystemWindowsFrameLayout_consumeBottomInset, true)
+
             statusBarColor = ta.getColor(R.styleable.FitsSystemWindowsFrameLayout_statusBarColor, Color.WHITE)
             isLightStatusBar = ta.getBoolean(R.styleable.FitsSystemWindowsFrameLayout_isLightStatusBar, true)
             if (isLightStatusBar) {
                 SystemUiVisibilityUtils.setLightStatusBar(this)
             }
+
             navigationBarColor = ta.getColor(R.styleable.FitsSystemWindowsFrameLayout_navigationBarColor, Color.BLACK)
-            navigationBarDividerColor = ta.getColor(R.styleable.FitsSystemWindowsFrameLayout_navigationBarDividerColor, Color.TRANSPARENT)
             isLightNavigationBar = ta.getBoolean(R.styleable.FitsSystemWindowsFrameLayout_isLightNavigationBar, false)
             if (isLightNavigationBar) {
                 SystemUiVisibilityUtils.setLightNavigationBar(this)
             }
+            showNavigationBarDivider = ta.getBoolean(R.styleable.FitsSystemWindowsFrameLayout_showNavigationBarDivider, isLightNavigationBar)
         } finally {
             ta.recycle()
         }
@@ -93,17 +134,18 @@ class FitsSystemWindowsFrameLayout @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val isMarshmallow = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-        val statusBarColor = if (isMarshmallow || !isLightStatusBar) this.statusBarColor else Color.BLACK
+        val shouldFallbackToDarkStatusBar = Build.VERSION.SDK_INT < Build.VERSION_CODES.M && isLightStatusBar
+        val statusBarColor = if (shouldFallbackToDarkStatusBar) Color.BLACK else this.statusBarColor
         drawRect(canvas, statusBarColor, 0, lastWindowInsetTop)
 
-        val isOreo = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-        val navigationBarColor = if (isOreo || !isLightNavigationBar) this.navigationBarColor else Color.BLACK
-        val navigationBarDividerColor = if (isOreo || !isLightNavigationBar) this.navigationBarDividerColor else Color.TRANSPARENT
-
+        val shouldFallbackToDarkNavigationBar = Build.VERSION.SDK_INT < Build.VERSION_CODES.O && isLightNavigationBar
+        val navigationBarColor = if (shouldFallbackToDarkNavigationBar) Color.BLACK else this.navigationBarColor
+        val navigationBarDividerColor = if (shouldFallbackToDarkNavigationBar) Color.TRANSPARENT else this.navigationBarDividerColor
         val navigationBarTop = (height - lastWindowInsetBottom).toFloat()
         drawRect(canvas, navigationBarColor, navigationBarTop, height.toFloat())
-        drawRect(canvas, navigationBarDividerColor, navigationBarTop, navigationBarTop + navigationBarDividerHeight)
+        if (showNavigationBarDivider) {
+            drawRect(canvas, navigationBarDividerColor, navigationBarTop, navigationBarTop + navigationBarDividerHeight)
+        }
     }
 
     private fun drawRect(canvas: Canvas, @ColorInt color: Int, top: Int, bottom: Int) {

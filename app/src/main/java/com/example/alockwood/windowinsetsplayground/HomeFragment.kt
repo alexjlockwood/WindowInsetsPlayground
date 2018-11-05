@@ -29,7 +29,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     R.color.design_core_ui_black_alpha40
                 })
 
-        statusBarBackgroundView.setOnApplyWindowInsetsListener { v, insets ->
+        statusBarBackgroundView.setOnApplyWindowInsetsListener { _, insets ->
             val statusBarLayoutParams = statusBarBackgroundView.layoutParams
             statusBarLayoutParams.height = insets.systemWindowInsetTop
             statusBarBackgroundView.layoutParams = statusBarLayoutParams

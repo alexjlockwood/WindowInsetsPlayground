@@ -4,4 +4,5 @@
   <color name="colorPrimaryDark">@color/design_core_ui_purple80</color>
   <color name="colorAccent">@color/design_core_ui_lyft_pink</color>
   <color name="status_bar_color_black_translucent">@color/design_core_ui_black_alpha40</color>
+  <color name="design_core_ui_divider">@color/design_core_ui_gray15</color>
 </resources>
